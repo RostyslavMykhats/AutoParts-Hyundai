@@ -1,3 +1,31 @@
 .header {
-    background-color: red;
+  padding: 30px 0;
+
+  .nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
+
+    &__item {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: #000000;
+      text-decoration: none;
+      margin: 0 20px;
+      transition: all 500ms ease;
+
+      &:hover {
+        color: #858585;
+        transform: scale(10);
+      } 
+    }
+
+    .line {
+        width: 30px;
+        border: 1px solid black;
+        transform: rotate(90deg);
+    }
+  }
 }
