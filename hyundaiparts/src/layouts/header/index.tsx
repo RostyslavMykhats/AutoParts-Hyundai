@@ -1,9 +1,13 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 // styles
 import s from "./index.module.scss";
-
+import { Container, Row, Col } from "react-bootstrap";
+import logo from "./Logo.png";
+import Search from "@/components/Search";
+import Cart from "@/components/cart";
 
 const Header = () => {
   return (
@@ -15,17 +19,38 @@ const Header = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={s.header}>
-        <p>Header</p>
         <ul className="d-flex gap-5">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/products">Products</Link>
-          </li>
-          <li>
-            
-          </li>
+          <Container>
+            <Row className="d-flex align-items-center justify-content-center">
+              <Col xs={2}>
+                <Link href="/">
+                  <Image src={logo} alt="H'PARTS" />
+                </Link>
+              </Col>
+              <Col xs={4}>
+                <Search />
+              </Col>
+              <Col xs={4} className="d-flex justify-content-end align-items-center">
+                <ul className={`d-flex ${s.nav}`}>
+                <li>
+                  <Link className={s.nav__item} href="/market">MARKET</Link>
+                </li>
+                <li>
+                  <Link className={s.nav__item} href="/sell">SELL</Link>
+                </li>
+                <li>
+                  <Link className={s.nav__item} href="/info">INFO</Link>
+                </li>
+                <li>
+                  <div className={s.line}></div>
+                </li>
+                </ul>
+              </Col>
+              <Col xs={2}>
+                <Cart/>
+              </Col>
+            </Row>
+          </Container>
         </ul>
       </header>
     </>
