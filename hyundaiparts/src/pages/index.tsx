@@ -1,9 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import s from "@/styles/Home.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
 import ButtonUi from "@/components/button";
-
+import BtnDown from "../../public/BtnDown.png";
+import CardHomepage from "@/components/CardHomePage";
+import Card1 from "../../public/user_3.png";
+import pillars from "../../public/Pillars.png";
 
 export default function Home() {
   return (
@@ -15,14 +19,27 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={s.main}>
-        <div className={`d-flex flex-column align-items-start justify-content-start pb-5 ${s.hero}`}>
+        <div
+          className={`d-flex flex-column align-items-start justify-content-center pb-5 ${s.hero}`}
+        >
           <Container>
             <Row>
-              <Col xs={7}>
+              <Col xs={12}>
                 <div className={`d-flex flex-column  ${s.hero__content}`}>
-                  <h1>GIVE YOUR OLD PARTS</h1>
+                  <h1
+                    style={{
+                      fontSize: "45px",
+                    }}
+                  >
+                    GIVE YOUR OLD PARTS
+                  </h1>
                   <p className={s.hero__big}>A NEW LIFE</p>
-                  <p className="mt-3">
+                  <p
+                    className="mt-3"
+                    style={{
+                      width: "33%",
+                    }}
+                  >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Vestibulum convallis mi ut velit porttitor placerat. Nulla
                     egestas mattis magna, ut luctus ligula mollis sit amet. Nam
@@ -31,16 +48,16 @@ export default function Home() {
                     sollicitudin ligula.
                   </p>
                   <div className="d-flex gap-5 mt-5">
-                    <ButtonUi >
-                    START SHOPPING
-                    </ButtonUi>
-                    <button style={{
-                      background: "transparent",
-                      border: "1px solid #FF8F28",
-                      color: "#FF8F28",
-                      padding: "5px 20px",
-                      borderRadius: "25px"
-                    }}>
+                    <ButtonUi>START SHOPPING</ButtonUi>
+                    <button
+                      style={{
+                        background: "transparent",
+                        border: "1px solid #FF8F28",
+                        color: "#FF8F28",
+                        padding: "5px 20px",
+                        borderRadius: "25px",
+                      }}
+                    >
                       SELL ITEM
                     </button>
                   </div>
@@ -49,6 +66,144 @@ export default function Home() {
             </Row>
           </Container>
         </div>
+        <section className={`d-flex gap-5 ${s.card}`} id="home">
+          <Container>
+            <Row>
+              <Col xs={12} className="d-flex gap-5 justify-content-center">
+                <CardHomepage>
+                  <Image src={Card1} alt="" />
+                  <h1>STEP ONE</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vestibulum convallis mi ut velit porttitor placerat. Lorem
+                    ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vestibulum convallis
+                  </p>
+                </CardHomepage>
+                <CardHomepage>
+                  <Image src={Card1} alt="" />
+                  <h1>STEP ONE</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vestibulum convallis mi ut velit porttitor placerat. Lorem
+                    ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vestibulum convallis
+                  </p>
+                </CardHomepage>
+                <CardHomepage>
+                  <Image src={Card1} alt="" />
+                  <h1>STEP ONE</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vestibulum convallis mi ut velit porttitor placerat. Lorem
+                    ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vestibulum convallis
+                  </p>
+                </CardHomepage>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+        <section className={s.mission}>
+          <Container>
+            <Row>
+              <Col
+                xs={12}
+                className="d-flex justify-content-end align-items-center"
+              >
+                <h1>
+                  decreasing student fees and assisting those who are aiming to{" "}
+                  <span>learn</span> , <span>grow</span> , and{" "}
+                  <span>push limits</span>
+                </h1>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+        <section className={s.pillars}>
+          <div className={s.pillars__bg}></div>
+          <Container>
+            <Row>
+              <Col xs={12}>
+                <div
+                  className={`d-flex flex-column justify-content-between gap-5 ${s.pillars__item}`}
+                >
+                  <div
+                    className="d-flex justify-content-between"
+                    style={{
+                      background: "#F0F0F0",
+                      borderRadius: "25px",
+                      padding: "10px 30px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        textAlign: "left",
+                        width: "20%",
+                      }}
+                    >
+                      <h1>SUSTAINABILITY</h1>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Vestibulum convallis mi ut velit porttitor placerat.
+                        Nulla egestas magna.
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        textAlign: "right",
+                        width: "20%",
+                      }}
+                    >
+                      <h1>COMMUNITY</h1>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Vestibulum convallis mi ut velit porttitor placerat.
+                        Nulla egestas magna.
+                      </p>
+                    </div>
+                  </div>
+                  <Image src={pillars} alt="" />
+                  <div
+                    className="d-flex justify-content-between"
+                    style={{
+                      background: "#F0F0F0",
+                      borderRadius: "25px",
+                      padding: "10px 30px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        textAlign: "left",
+                        width: "20%",
+                      }}
+                    >
+                      <h1>INNOVATION</h1>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Vestibulum convallis mi ut velit porttitor placerat.
+                        Nulla egestas magna.
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        textAlign: "right",
+                        width: "20%",
+                      }}
+                    >
+                      <h1>GROWTH</h1>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Vestibulum convallis mi ut velit porttitor placerat.
+                        Nulla egestas magna.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
       </main>
     </>
   );
