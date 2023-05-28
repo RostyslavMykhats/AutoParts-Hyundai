@@ -22,7 +22,7 @@ const pageSwiper = () => {
                     Card link
                   </a>
                   <a href="#" className={s.card__link}>
-                    Another link
+                    Another linkaaa
                   </a>
                 </div>
               </div>
