@@ -8,6 +8,7 @@ import Phone from "./Phone.png";
 import Mail from "./mail.png";
 // styles
 import s from "./index.module.scss";
+import ButtonUi from "@/components/button";
 
 const Footer = () => {
   return (
@@ -27,7 +28,7 @@ const Footer = () => {
              <h3>Give Us Your Feedback!</h3>
              <p>H’Parts is a growing community and we are actively looking for feedback from you! Growth and improvement is our top priority.</p>
              <textarea name="" id="" cols="38" rows="3" placeholder="Type your message here"></textarea>
-              <button type="submit">SEND MESSAGE</button>
+              <ButtonUi>SEND MESSAGE</ButtonUi>
             </Col>
           </Row>
         </Container>
