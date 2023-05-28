@@ -1,0 +1,10 @@
+.slide {
+  display: flex;
+  flex-direction: column;
+  img {
+    align-self: center;
+  }
+  border: 1px solid #e0e0e0;
+  border-radius: 31px;
+  padding: 40px 40px ;
+}
