@@ -10,7 +10,9 @@ const info = () => {
   return (
     <>
       <div>
-        <Image style={{ width: "100%" }} src={Bunner} alt="Bunner" />
+        <Image style={{ width: "100%",
+        marginTop:'80px'
+       }} src={Bunner} alt="Bunner" />
       </div>
 
       <section className={s.info}>
