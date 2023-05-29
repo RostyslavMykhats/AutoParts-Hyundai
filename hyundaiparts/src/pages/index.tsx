@@ -26,20 +26,9 @@ export default function Home() {
             <Row>
               <Col xs={12}>
                 <div className={`d-flex flex-column  ${s.hero__content}`}>
-                  <h1
-                    style={{
-                      fontSize: "45px",
-                    }}
-                  >
-                    GIVE YOUR OLD PARTS
-                  </h1>
+                  <h1>GIVE YOUR OLD PARTS</h1>
                   <p className={s.hero__big}>A NEW LIFE</p>
-                  <p
-                    className="mt-3"
-                    style={{
-                      width: "33%",
-                    }}
-                  >
+                  <p className={`mt-3 ${s.hero__content_text}`}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Vestibulum convallis mi ut velit porttitor placerat. Nulla
                     egestas mattis magna, ut luctus ligula mollis sit amet. Nam
@@ -69,7 +58,10 @@ export default function Home() {
         <section className={`d-flex gap-5 ${s.card}`} id="home">
           <Container>
             <Row>
-              <Col xs={12} className="d-flex gap-5 justify-content-center">
+              <Col
+                xs={12}
+                className="d-flex gap-5 justify-content-center flex-wrap"
+              >
                 <CardHomepage>
                   <Image src={Card1} alt="" />
                   <h1>STEP ONE</h1>
@@ -129,19 +121,9 @@ export default function Home() {
                   className={`d-flex flex-column justify-content-between gap-5 ${s.pillars__item}`}
                 >
                   <div
-                    className="d-flex justify-content-between"
-                    style={{
-                      background: "#F0F0F0",
-                      borderRadius: "25px",
-                      padding: "10px 30px",
-                    }}
+                    className={`d-flex justify-content-between flex-wrap ${s.pillars__card}`}
                   >
-                    <div
-                      style={{
-                        textAlign: "left",
-                        width: "20%",
-                      }}
-                    >
+                    <div className={s.pillars__card_left}>
                       <h1>SUSTAINABILITY</h1>
                       <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -149,12 +131,7 @@ export default function Home() {
                         Nulla egestas magna.
                       </p>
                     </div>
-                    <div
-                      style={{
-                        textAlign: "right",
-                        width: "20%",
-                      }}
-                    >
+                    <div className={s.pillars__card_right}>
                       <h1>COMMUNITY</h1>
                       <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -163,21 +140,15 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <Image src={pillars} alt="" />
+                  <Image
+                    className={`${s.pillars__element}`}
+                    src={pillars}
+                    alt=""
+                  />
                   <div
-                    className="d-flex justify-content-between"
-                    style={{
-                      background: "#F0F0F0",
-                      borderRadius: "25px",
-                      padding: "10px 30px",
-                    }}
+                    className={`d-flex justify-content-between flex-wrap ${s.pillars__card}`}
                   >
-                    <div
-                      style={{
-                        textAlign: "left",
-                        width: "20%",
-                      }}
-                    >
+                    <div className={s.pillars__card_left}>
                       <h1>INNOVATION</h1>
                       <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -185,12 +156,7 @@ export default function Home() {
                         Nulla egestas magna.
                       </p>
                     </div>
-                    <div
-                      style={{
-                        textAlign: "right",
-                        width: "20%",
-                      }}
-                    >
+                    <div className={s.pillars__card_right}>
                       <h1>GROWTH</h1>
                       <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

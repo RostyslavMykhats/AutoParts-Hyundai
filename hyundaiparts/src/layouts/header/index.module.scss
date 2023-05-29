@@ -24,14 +24,83 @@
 
       &:hover {
         color: #ff8f28;
-        transform: scale(10);
-      } 
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .burger {
+    display: none;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  @media (max-width: 1200px) {
+
+    
+
+    .nav_desc {
+      display: none !important;
     }
 
-    .line {
-        width: 30px;
-        border: 1px solid black;
-        transform: rotate(90deg);
+    .nav {
+      display: none;
+    }
+
+    .burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+
+      .line {
+        width: 100%;
+        height: 2px;
+        background: #000000;
+        transition: all 300ms ease;
+
+        &.line1 {
+          transform: rotate(46deg);
+          transform-origin: top left;
+        }
+
+        &.line2 {
+          opacity: 0;
+        }
+
+        &.line3 {
+          transform: rotate(-45deg);
+          transform-origin: bottom left;
+        }
+
+        &.active {
+          background: #ff8f28;
+        }
+      }
+    }
+
+    .mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #ffffff;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  @media (max-width: 770px) {
+    .searchdesc {
+      display: none;
     }
   }
 }
+

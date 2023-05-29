@@ -15,16 +15,39 @@
   background-repeat: no-repeat;
   background-position: center;
 
+  &__content {
+    h1 {
+      font-size: 45px;
+    }
+    &_text {
+      width: 33%;
+    }
+    @media (max-width: 1200px) {
+      align-items: center;
+      &_text {
+        width: 80%;
+      }
+      h1 {
+        text-align: center;
+        font-size: 35px;
+      }
+    }
+  }
+
   &__big {
     color: #ff8f28;
     font-weight: 600;
     font-size: 120px;
     line-height: 78%;
+    @media (max-width: 1200px) {
+      text-align: center;
+      font-size: 45px;
+    }
   }
 }
 
 .card {
-  margin-top: 40px;
+  margin-top: -40px;
 }
 
 .mission {
@@ -49,6 +72,12 @@
     span {
       color: #ff8f28;
     }
+
+    @media (max-width: 1200px) {
+      width: 100%;
+      font-size: 45px;
+      text-align: center;
+    }
   }
 }
 
@@ -59,15 +88,29 @@
   width: 100%;
   height: 100%;
 
-  img {
+  &__card {
+    background: #f0f0f0;
+    border-radius: 25px;
+    padding: 10px 30px;
+    &_right {
+      width: 20%;
+      text-align: right;
+    }
+    &_left {
+      width: 20%;
+      text-align: left;
+      }
+  }
+
+  &__element {
     position: absolute;
-    z-index: 999;
+    z-index: 900;
     right: 50%;
     transform: translate(50%);
   }
   h1 {
     position: relative;
-    z-index: 1000;
+    z-index: 901;
   }
 
   &__bg {
@@ -80,5 +123,30 @@
     background-position: center;
     width: 100%;
     height: 100%;
+  }
+
+  @media (max-width: 1200px) {
+    &__element {
+      width: 25rem;
+      object-fit: contain;
+    }
+    h1 {
+      font-size: 25px;
+    }
+  }
+  @media (max-width: 770px) {
+    &__element {
+      display: none;
+    }
+    &__card {
+      flex-direction: column;
+      align-items: center;
+      &_left {
+        width: 100%;
+      }
+      &_right  {
+        width: 100%;
+      }
+    }
   }
 }

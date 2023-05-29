@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 // styles
 import s from "./index.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
@@ -10,6 +11,11 @@ import Search from "@/components/Search";
 import Cart from "@/components/cart";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <Head>
@@ -19,37 +25,93 @@ const Header = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={s.header}>
-        <ul className="d-flex gap-5">
+        <ul className={`d-flex gap-5 ${s.nav}`}>
           <Container>
-            <Row className="d-flex align-items-center justify-content-center">
-              <Col xs={2}>
+            <Row className="d-flex align-items-center justify-content-between flex-wrap">
+              <Col xs={2} className="d-flex justify-content-start">
                 <Link href="/">
-                  <Image src={logo} alt="H'PARTS" />
+                  <Image className={s.header__logo} src={logo} alt="H'PARTS" />
                 </Link>
               </Col>
-              <Col xs={4}>
-                <Search />
+              <Col xs={4} className="d-flex justify-content-end">
+                <div className={`${s.searchdesc}`}><Search /></div>
               </Col>
-              <Col xs={4} className="d-flex justify-content-end align-items-center">
-                <ul className={`d-flex ${s.nav}`}>
-                <li>
-                  <Link className={s.nav__item} href="/market">MARKET</Link>
-                </li>
-                <li>
-                  <Link className={s.nav__item} href="/sell">SELL</Link>
-                </li>
-                <li>
-                  <Link className={s.nav__item} href="/info">INFO</Link>
-                </li>
-                <li>
-                  <div className={s.line}></div>
-                </li>
+              <Col
+                xs={4}
+                className={`d-flex justify-content-end align-items-center ${
+                  isOpen ? s.mobile : ""
+                } ${s.nav_desc}`}
+              >
+                <ul className={`${s.nav}`}>
+                  <li>
+                    <Link className={s.nav__item} href="/market">
+                      MARKET
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className={s.nav__item} href="/sell">
+                      SELL
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className={s.nav__item} href="/info">
+                      INFO
+                    </Link>
+                  </li>
+                  <li>
+                    <div className={s.line}></div>
+                  </li>
                 </ul>
               </Col>
+              <Col xs={2} className={`d-flex justify-content-end`}>
+                <Cart />
+              </Col>
               <Col xs={2}>
-                <Cart/>
+                <div className={s.burger} onClick={toggleMenu}>
+                  <div
+                    className={`${s.line} ${
+                      isOpen ? s.line1 + " " + s.active : ""
+                    }`}
+                  ></div>
+                  <div
+                    className={`${s.line} ${
+                      isOpen ? s.line2 + " " + s.active : ""
+                    }`}
+                  ></div>
+                  <div
+                    className={`${s.line} ${
+                      isOpen ? s.line3 + " " + s.active : ""
+                    }`}
+                  ></div>
+                </div>
               </Col>
             </Row>
+            {isOpen && (
+              <Row className="d-flex align-items-center justify-content-center">
+                <Col xs={12}>
+                  <ul className={`d-flex ${s.nav} ${s.mobile}`}>
+                    <li>
+                      <Search />
+                    </li>
+                    <li>
+                      <Link className={s.nav__item} href="/market">
+                        MARKET
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className={s.nav__item} href="/sell">
+                        SELL
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className={s.nav__item} href="/info">
+                        INFO
+                      </Link>
+                    </li>
+                  </ul>
+                </Col>
+              </Row>
+            )}
           </Container>
         </ul>
       </header>
