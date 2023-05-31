@@ -9,7 +9,6 @@ const errorFiveHundred = () => {
           <Col
             style={{
               minHeight: "75vh",
-              
             }}
             xs={12}
             className="d-flex align-items-center justify-content-center"

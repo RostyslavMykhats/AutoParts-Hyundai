@@ -11,7 +11,9 @@ const info = () => {
     <>
       <div>
         <Image style={{ width: "100%",
-        marginTop:'80px'
+        marginTop:'20px',
+        height:'200px',
+        objectFit:'cover',
        }} src={Bunner} alt="Bunner" />
       </div>
 
