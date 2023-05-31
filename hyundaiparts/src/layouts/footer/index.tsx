@@ -27,7 +27,7 @@ const Footer = () => {
             <Col className="d-flex flex-column" xs={6}>
              <h3>Give Us Your Feedback!</h3>
              <p>H’Parts is a growing community and we are actively looking for feedback from you! Growth and improvement is our top priority.</p>
-             <textarea name="" id="" cols="38" rows="3" placeholder="Type your message here"></textarea>
+             <textarea name="" id="" cols="50" rows="2" placeholder="Type your message here"></textarea>
               <ButtonUi>SEND MESSAGE</ButtonUi>
             </Col>
           </Row>
