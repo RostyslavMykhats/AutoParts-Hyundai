@@ -1,18 +1,34 @@
 import React from "react";
 import s from "./index.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 
-const SingleProduct = ({ product }) => {
-    const shortDescription = product.description.slice(0, 80);
-    const shortTitle = product.title.slice(0, 15);
+const SingleProduct = ({ product }: any) => {
+  const shortDescription = product.description.slice(0, 80);
+  const shortTitle = product.title.slice(0, 15);
   return (
     <>
-      <div className={s.card}>
-        <img className={s.card__image} src={`${product.image}`} alt={product.title} width='100%' height={150} />
-        <h5 className={s.card__title}>{shortTitle}</h5>
-        <p className={s.card__desc}>{shortDescription}</p>
-        <p className={s.card__price}>{product.price}$</p>
-      </div>
+      <Link className={s.item}
+        product={product}
+        style={{
+          textDecoration: "none",
+          color: "#000",
+        }}
+        href={`/market/${product.id}?category=${product.category}`}
+      >
+        <div className={s.card}>
+          <img
+            className={s.card__image}
+            src={`${product.image}`}
+            alt={product.title}
+            width="100%"
+            height={150}
+          />
+          <h5 className={s.card__title}>{shortTitle}</h5>
+          <p className={s.card__desc}>{shortDescription}</p>
+          <p className={s.card__price}>{product.price}$</p>
+        </div>
+      </Link>
     </>
   );
 };

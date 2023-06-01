@@ -13,7 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Provider store={store}>
         <Layouts>
-          <Component {...pageProps} />
+          <Component {...pageProps}  style={{
+            background: "#F5F5F5",
+          }}/>
         </Layouts>
       </Provider> 
     </>

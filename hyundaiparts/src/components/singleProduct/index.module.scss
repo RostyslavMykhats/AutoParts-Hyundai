@@ -1,5 +1,7 @@
-.card {
+.item {
     max-width: 30%;
+    .card {
+    
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -17,3 +19,5 @@
         font-weight: bold;
     }
 }
+}
+
