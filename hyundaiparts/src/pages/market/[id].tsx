@@ -3,18 +3,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "@/store/features/cart";
-import Image from "next/image";
-import SingleProduct from "@/components/singleProduct";
 import { Col, Container, Row } from "react-bootstrap";
+import s from "./single.module.scss";
+import ButtonUi from "@/components/button";
 
 const SingleProductPage = () => {
-  const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-
   const [product, setProduct] = useState(null);
-  const [relatedProducts, setRelatedProducts] = useState([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -22,14 +19,6 @@ const SingleProductPage = () => {
         `https://fakestoreapi.com/products/${id}`
       );
       setProduct(response.data);
-
-      const relatedResponse = await axios.get(
-        `https://fakestoreapi.com/products/category/${response.data.category}`
-      );
-      const filteredProducts = relatedResponse.data.filter(
-        (p) => p.id !== response.data.id
-      );
-      setRelatedProducts(filteredProducts.slice(0, 4));
     };
 
     if (id) {
@@ -40,13 +29,6 @@ const SingleProductPage = () => {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart(product));
-      setShowPopup(true);
-    }
-  };
-
-  const handleRemoveFromCart = () => {
-    if (product) {
-      dispatch(removeFromCart(product.id));
     }
   };
 
@@ -55,28 +37,26 @@ const SingleProductPage = () => {
   }
 
   return (
-    <div className="m-5">
+    <div className="mt-5" style={{
+      minHeight:'80vh'
+    }}>
       <Container>
         <Row>
           <Col xs={12}>
-            <div>
-              <img src={product.image} alt={product.title} />
-              <h3>{product.title}</h3>
-              <p>{product.description}</p>
-              <h3>{product.price} USD</h3>
-              <button onClick={handleAddToCart}>До кошика</button>
+            <div className={`d-flex align-items-center justigy-content-around gap-5 m-5 ${s.section}`}>
+              <img
+                className={s.image}
+                src={product.image}
+                alt={product.title}
+              />
+              <div className={`d-flex flex-column gap-4 `}>
+                <h3>{product.title}</h3>
+                <p>{product.description}</p>
+                <h3>{product.price} $</h3>
+                <ButtonUi onClick={handleAddToCart}>Buy</ButtonUi>
+              </div>
             </div>
           </Col>
-          {/* Код попапу */}
-          {showPopup && (
-            <>
-              <div onClick={() => setShowPopup(false)} />
-              <div>
-                <p>Товар в кошику</p>
-                <button onClick={() => setShowPopup(false)}>Закрити</button>
-              </div>
-            </>
-          )}
         </Row>
       </Container>
     </div>

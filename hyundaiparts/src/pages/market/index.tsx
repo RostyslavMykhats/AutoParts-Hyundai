@@ -1,35 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { useRouter } from "next/router"; // Підключення useRouter з Next.js для отримання доступу до роутера
 import s from "./market.module.scss";
 import SingleProduct from "@/components/singleProduct";
 import { getData } from "@/utils/Fetch";
 
 const Market = () => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const router = useRouter(); // Ініціалізація useRouter для доступу до роутера
+  const { query } = router; // Отримання значення параметрів запиту з роутера
+  const selectedCategory = query.category || "All"; // Отримання вибраної категорії з параметрів запиту, або "All" якщо вона не задана
 
-  const filteredProducts =
-    selectedCategory === "All"
-      ? products
-      : products.filter((product) => product.category === selectedCategory);
+  const [products, setProducts] = useState([]); // Стейт для збереження списку продуктів
+  const [categories, setCategories] = useState([]); // Стейт для збереження списку категорій
+  const [loading, setLoading] = useState(true); // Стейт для показу індикатора завантаження
+  const [filteredProducts, setFilteredProducts] = useState([]); // Стейт для збереження фільтрованих продуктів
 
-  // get products
+  // Завантаження списку продуктів з API
   useEffect(() => {
+    setLoading(true); // Встановлення значення loading на true під час завантаження
+
     getData("https://fakestoreapi.com/products", "").then((data) => {
-      setProducts(data);
+      setProducts(data); // Збереження отриманих продуктів у стейті
+      setLoading(false); // Встановлення значення loading на false після завантаження
     });
   }, []);
 
-  // get products categories
+  // Завантаження списку категорій з API
   useEffect(() => {
+    setLoading(true); // Встановлення значення loading на true під час завантаження
+
     getData("https://fakestoreapi.com/products/categories", "").then((data) => {
-      setCategories(data);
+      setCategories(data); // Збереження отриманих категорій у стейті
+      setLoading(false); // Встановлення значення loading на false після завантаження
     });
   }, []);
+
+  useEffect(() => {
+    // Фільтрація продуктів за вибраною категорією
+    setFilteredProducts(
+      selectedCategory === "All"
+        ? products
+        : products.filter((product) => product.category === selectedCategory)
+    );
+  }, [selectedCategory, products]);
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    // Обробник кліку на категорію
+    router.push({
+      pathname: "/market/",
+      query: { category }, // Оновлення шляху з вибраною категорією у параметрах запиту
+    });
   };
 
   return (
@@ -41,7 +61,7 @@ const Market = () => {
           </Col>
         </Row>
         <Row>
-          <Col xs={4}>
+          <Col xs={12} lg={4}>
             <ul className={s.categories}>
               <li
                 style={{
@@ -53,7 +73,9 @@ const Market = () => {
                 Category
               </li>
               <li
-                className={`${s.category} ${selectedCategory === "All" ? s.active : ""}`}
+                className={`${s.category} ${
+                  selectedCategory === "All" ? s.active : ""
+                }`}
                 onClick={() => handleCategoryClick("All")}
               >
                 All items
@@ -61,7 +83,9 @@ const Market = () => {
               {categories.map((category) => (
                 <li
                   key={category}
-                  className={`${s.category} ${selectedCategory === category ? s.active : ""}`}
+                  className={`${s.category} ${
+                    selectedCategory === category ? s.active : ""
+                  }`}
                   onClick={() => handleCategoryClick(category)}
                 >
                   {category}
@@ -69,10 +93,20 @@ const Market = () => {
               ))}
             </ul>
           </Col>
-          <Col xs={8} className="d-flex flex-wrap gap-3">
-            {filteredProducts.map((p) => (
-              <SingleProduct key={p.id} product={p} />
-            ))}
+          <Col
+            xs={12}
+            lg={8}
+            className={`d-flex align-items-center justify-content-start flex-wrap gap-3 ${s.products}`}
+          >
+            {loading ? (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              filteredProducts.map((p) => (
+                <SingleProduct key={p.id} product={p} />
+              ))
+            )}
           </Col>
         </Row>
       </Container>
@@ -81,4 +115,3 @@ const Market = () => {
 };
 
 export default Market;
-

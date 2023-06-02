@@ -4,17 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SingleProduct = ({ product }: any) => {
-  const shortDescription = product.description.slice(0, 80);
+  const shortDescription = product.description.slice(0, 70);
   const shortTitle = product.title.slice(0, 15);
   return (
     <>
       <Link className={s.item}
-        product={product}
         style={{
           textDecoration: "none",
           color: "#000",
         }}
-        href={`/market/${product.id}?category=${product.category}`}
+        href={`/market/${product.id}?${product.title}?category=${product.category}`}
       >
         <div className={s.card}>
           <img

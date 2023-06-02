@@ -1,7 +1,6 @@
 .item {
-    max-width: 30%;
-    .card {
-    
+  max-width: 30%;
+  .card {
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -10,14 +9,19 @@
     padding: 10px 10px;
 
     &__image {
-        border-radius: 25px;
-        object-fit: contain;
-        margin-bottom: 10px;
+      border-radius: 25px;
+      object-fit: contain;
+      margin-bottom: 10px;
     }
 
     &__price {
-        font-weight: bold;
+      font-weight: bold;
     }
+  }
+  @media (max-width:992px) {
+    max-width: 40%;
+  }
+  @media (max-width:770px) {
+    max-width: 80%
+  }
 }
-}
-

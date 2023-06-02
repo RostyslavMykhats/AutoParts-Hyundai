@@ -1,0 +1,17 @@
+.image {
+    width: 300px;
+    border-radius: 25px;
+    object-fit: contain;
+}
+
+.section {
+    height: 100%;
+    @media (max-width:770px) {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        .image {
+            width: 250px;
+        }
+    }
+}

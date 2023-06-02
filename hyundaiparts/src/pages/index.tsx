@@ -37,7 +37,7 @@ export default function Home() {
                     sollicitudin ligula.
                   </p>
                   <div className="d-flex gap-5 mt-5">
-                    <ButtonUi>START SHOPPING</ButtonUi>
+                    <ButtonUi> <Link href="/market">START SHOPPING</Link> </ButtonUi>
                     <button
                       style={{
                         background: "transparent",
@@ -47,7 +47,12 @@ export default function Home() {
                         borderRadius: "25px",
                       }}
                     >
-                      SELL ITEM
+                      <Link href="/sell" style={{
+                        textDecoration: "none",
+                        color: "#FF8F28",
+                      }}> SELL ITEM
+                      </Link>
+                     
                     </button>
                   </div>
                 </div>
