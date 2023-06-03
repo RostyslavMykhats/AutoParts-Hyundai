@@ -44,7 +44,7 @@ export default function Home() {
                         border: "1px solid #FF8F28",
                         color: "#FF8F28",
                         padding: "5px 20px",
-                        borderRadius: "25px",
+                        borderRadius: "8px",
                       }}
                     >
                       <Link href="/sell" style={{

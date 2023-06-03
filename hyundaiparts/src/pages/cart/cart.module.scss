@@ -3,3 +3,64 @@
         color: #858585;
     }
 }
+
+.products {
+    padding: 30px 40px;
+    border: 1px solid #858585;
+    border-radius: 8px;
+
+    &__price {
+        background-color: #e6e6e6;
+        border-radius: 8px;
+        padding: 20px 40px;
+        h4 {
+
+            border-bottom: 1px solid #858585;
+            padding-bottom: 10px;
+        }
+
+        p {
+            font-weight: 500;
+        }
+    }
+
+    &__checkout {
+        border: none;
+        background-color: #FF8F28;
+        color: #FFF;
+        font-weight: 500;
+        padding: 15px 20px;
+        border-radius: 8px;
+        width: 100%;
+    }
+}
+
+.product {
+
+    h6 {
+        font-weight: bold;
+    }
+    width: 100%;
+    &__image{
+        margin-right: 15px;
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+    border-bottom: 1px solid #bdbdbd;
+    padding:15px 0;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__btn {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: none;
+        width: max-content;
+        align-self: flex-end;
+    }
+}

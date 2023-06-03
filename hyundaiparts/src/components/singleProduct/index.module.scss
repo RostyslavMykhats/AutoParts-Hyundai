@@ -5,11 +5,11 @@
     flex-direction: column;
     text-align: left;
     border: 1px solid rgb(224, 224, 224);
-    border-radius: 25px;
+    border-radius: 8px;
     padding: 10px 10px;
 
     &__image {
-      border-radius: 25px;
+      border-radius: 8px;
       object-fit: contain;
       margin-bottom: 10px;
     }

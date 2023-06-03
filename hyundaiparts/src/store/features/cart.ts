@@ -7,20 +7,30 @@ export interface Product {
   image: string;
 }
 
-export interface CartState {
-  items: Product[]; // Масив товарів в кошику
+export interface CartItem {
+  product: Product;
+  quantity: number;
 }
 
-const getInitialItems = (): Product[] => {
-  try {
-    const cartItems = localStorage.getItem("cartItems"); // Отримання збережених товарів з localStorage
-    if (cartItems) {
-      return JSON.parse(cartItems); // Парсинг рядка JSON у масив об'єктів товарів
+export interface CartState {
+  items: CartItem[]; // Масив товарів в кошику з кількістю
+}
+
+export const getInitialItems = (): CartItem[] => {
+  let initialItems: CartItem[] = [];
+
+  if (typeof window !== "undefined" && window.localStorage) {
+    try {
+      const cartItems = window.localStorage.getItem("cartItems");
+      if (cartItems) {
+        initialItems = JSON.parse(cartItems);
+      }
+    } catch (error) {
+      console.log("Error retrieving cart items from localStorage:", error);
     }
-  } catch (error) {
-    console.log("Error retrieving cart items from localStorage:", error);
   }
-  return []; // Повернення пустого масиву, якщо сталася помилка або немає збережених товарів
+
+  return initialItems;
 };
 
 const initialState: CartState = {
@@ -32,31 +42,51 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<Product>) => {
-      const product = action.payload; // Отримання товару, що додається до кошика
-      const existingItem = state.items.find((item) => item.id === product.id); // Пошук існуючого товару в кошику
+      const product = action.payload;
+      const existingItem = state.items.find((item) => item.product.id === product.id);
+    
       if (existingItem) {
-        existingItem.quantity += 1; // Збільшення кількості товару, якщо він вже присутній в кошику
+        // Якщо товар вже присутній в кошику, збільшуємо його кількість на 1
+        existingItem.quantity += 1;
       } else {
-        state.items.push({ ...product, quantity: 1 }); // Додавання нового товару до кошика з початковою кількістю 1
+        // Якщо товар не знайдено, додаємо його до кошика з кількістю 1
+        state.items.push({ product, quantity: 1 });
       }
-      try {
-        localStorage.setItem("cartItems", JSON.stringify(state.items)); // Збереження змін до localStorage
-      } catch (error) {
-        console.log("Error saving cart items to localStorage:", error);
-      }
+      
+    
+      saveCartItemsToLocalStorage(state.items);
     },
+    
     removeFromCart: (state, action: PayloadAction<number>) => {
-      const productId = action.payload; // Отримання ID товару, який видаляється з кошика
-      state.items = state.items.filter((item) => item.id !== productId); // Видалення товару зі списку товарів в кошику
-      try {
-        localStorage.setItem("cartItems", JSON.stringify(state.items)); // Збереження змін до localStorage
-      } catch (error) {
-        console.log("Error saving cart items to localStorage:", error);
+      const productId = action.payload;
+      const itemIndex = state.items.findIndex((item) => item.product.id === productId);
+      if (itemIndex !== -1) {
+        state.items.splice(itemIndex, 1);
       }
+      saveCartItemsToLocalStorage(state.items);
+    },
+    updateCartItemQuantity: (
+      state,
+      action: PayloadAction<{ productId: number; quantity: number }>
+    ) => {
+      const { productId, quantity } = action.payload;
+      const item = state.items.find((item) => item.product.id === productId);
+      if (item) {
+        item.quantity = quantity;
+      }
+      saveCartItemsToLocalStorage(state.items);
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions; // Експорт створених дій для взаємодії зі станом кошика
+const saveCartItemsToLocalStorage = (items: CartItem[]) => {
+  try {
+    window.localStorage.setItem("cartItems", JSON.stringify(items));
+  } catch (error) {
+    console.log("Помилка при збереженні товарів кошика в localStorage:", error);
+  }
+};
+
+export const { addToCart, removeFromCart , updateCartItemQuantity} = cartSlice.actions; // Експорт створених дій для взаємодії зі станом кошика
 
 export default cartSlice.reducer; // Експорт редюсера для використання в Redux store
