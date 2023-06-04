@@ -5,7 +5,7 @@ const ButtonUi = (props:any) => {
     const { children } = props;
   return (
     <>
-        <button className={s.btn}>
+        <button {...children} className={s.btn}>
         {children}
         </button>
     </>

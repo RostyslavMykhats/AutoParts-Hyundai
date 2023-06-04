@@ -6,13 +6,21 @@ import { addToCart, removeFromCart } from "@/store/features/cart";
 import { Col, Container, Row } from "react-bootstrap";
 import s from "./single.module.scss";
 import ButtonUi from "@/components/button";
+import Popup from "@/components/Popup";
+
+interface Product {
+  title: string;
+  image: string;
+  description: string;
+  price: number;
+}
 
 const SingleProductPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-  const [product, setProduct] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // Додано стан для відображення попапу
+  const [product, setProduct] = useState<Product | null>(null);
+  const [showPopup, setShowPopup] = useState(false); // стан для відображення попапу
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -79,15 +87,7 @@ const SingleProductPage = () => {
           </Col>
         </Row>
       </Container>
-
-      {showPopup && (
-        <div className={s["popup-overlay"]}>
-          <div className={s.popup}>
-            <p>Product added to cart!</p>
-            <button onClick={() => setShowPopup(false)}>Close</button>
-          </div>
-        </div>
-      )}
+      {showPopup && <Popup onClose={() => setShowPopup(false)} />}
     </div>
   );
 

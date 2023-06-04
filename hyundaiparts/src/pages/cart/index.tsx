@@ -24,7 +24,7 @@ const Cart = () => {
     if (savedCartItems) {
       // Якщо є збережені товари, то розпарсимо їх і диспетчеризуємо дію addToCart для кожного товару
       const parsedCartItems = JSON.parse(savedCartItems);
-      parsedCartItems.forEach((item) => {
+      parsedCartItems.forEach((item:any) => {
         dispatch(addToCart(item.product));
       });
     }
@@ -60,7 +60,7 @@ const Cart = () => {
     }
   };
 
-  const saveCartItemsToLocalStorage = (items) => {
+  const saveCartItemsToLocalStorage = (items:any) => {
     // Зберігаємо товари в localStorage у вигляді рядка JSON
     localStorage.setItem("cart", JSON.stringify(items));
   };
