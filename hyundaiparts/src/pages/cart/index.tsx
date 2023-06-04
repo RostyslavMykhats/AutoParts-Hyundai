@@ -19,40 +19,49 @@ const Cart = () => {
   );
 
   useEffect(() => {
+    // При завантаженні компонента перевіряємо, чи є збережені товари в localStorage
     const savedCartItems = localStorage.getItem("cart");
     if (savedCartItems) {
+      // Якщо є збережені товари, то розпарсимо їх і диспетчеризуємо дію addToCart для кожного товару
       const parsedCartItems = JSON.parse(savedCartItems);
       parsedCartItems.forEach((item) => {
-        dispatch(addToCart(item.product)); // Dispatch the addToCart action for each item in the retrieved cart items
+        dispatch(addToCart(item.product));
       });
     }
   }, []);
 
   const handleRemoveFromCart = (productId: number) => {
+    // Диспетчеризуємо дію removeFromCart для видалення товару з кошика за його ідентифікатором
     dispatch(removeFromCart(productId));
   };
 
   const handleQuantityChange = (productId: number, newQuantity: number) => {
+    // Диспетчеризуємо дію updateCartItemQuantity для оновлення кількості товару в кошику
     dispatch(updateCartItemQuantity({ productId, quantity: newQuantity }));
   };
 
   const handleIncrementQuantity = (productId: number) => {
+    // Знаходимо товар за його ідентифікатором
     const item = cartItems.find((item) => item.product.id === productId);
     if (item) {
+      // Якщо товар знайдено, збільшуємо його кількість на 1 і викликаємо handleQuantityChange для оновлення кількості
       const newQuantity = item.quantity + 1;
       handleQuantityChange(productId, newQuantity);
     }
   };
 
   const handleDecrementQuantity = (productId: number) => {
+    // Знаходимо товар за його ідентифікатором
     const item = cartItems.find((item) => item.product.id === productId);
     if (item && item.quantity > 1) {
+      // Якщо товар знайдено і його кількість більша за 1, зменшуємо його кількість на 1 і викликаємо handleQuantityChange для оновлення кількості
       const newQuantity = item.quantity - 1;
       handleQuantityChange(productId, newQuantity);
     }
   };
 
   const saveCartItemsToLocalStorage = (items) => {
+    // Зберігаємо товари в localStorage у вигляді рядка JSON
     localStorage.setItem("cart", JSON.stringify(items));
   };
 
@@ -70,6 +79,7 @@ const Cart = () => {
         <Col xs={12} lg={8}>
           <div className={`d-flex flex-column ${s.products}`}>
             {cartItems.length > 0 ? (
+              // Якщо в кошику є товари, відображаємо їх
               cartItems.map((item) => (
                 <div
                   key={item.product.id}
@@ -89,14 +99,18 @@ const Cart = () => {
                     <div className={s.quantity}>
                       <button
                         className={s.quantity__btn}
-                        onClick={() => handleDecrementQuantity(item.product.id)}
+                        onClick={() =>
+                          handleDecrementQuantity(item.product.id)
+                        }
                       >
                         -
                       </button>
                       <span>{item.quantity}</span>
                       <button
                         className={s.quantity__btn}
-                        onClick={() => handleIncrementQuantity(item.product.id)}
+                        onClick={() =>
+                          handleIncrementQuantity(item.product.id)
+                        }
                       >
                         +
                       </button>
@@ -111,6 +125,7 @@ const Cart = () => {
                 </div>
               ))
             ) : (
+              // Якщо кошик порожній, відображаємо відповідне повідомлення
               <p>Your basket is empty.</p>
             )}
           </div>

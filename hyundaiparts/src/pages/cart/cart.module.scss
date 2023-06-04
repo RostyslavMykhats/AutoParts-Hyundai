@@ -64,3 +64,19 @@
         align-self: flex-end;
     }
 }
+
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 10%;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    padding: 5px 5px;
+
+    &__btn {
+        border: none;
+        background: none;
+        outline: none;
+    }
+}

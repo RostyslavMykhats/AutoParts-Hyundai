@@ -12,6 +12,7 @@ const SingleProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [product, setProduct] = useState(null);
+  const [showPopup, setShowPopup] = useState(false); // Додано стан для відображення попапу
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,17 +34,15 @@ const SingleProductPage = () => {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart(product));
-      // Передача об'єкта товару без кількості
+      setShowPopup(true); // Встановлюємо значення стану на true при натисканні кнопки
     }
   };
-  
-  
+
   const handleRemoveFromCart = () => {
     if (product) {
-      dispatch(removeFromCart(product)); // Передача ID товару замість об'єкта product
+      dispatch(removeFromCart(product));
     }
   };
-  
 
   if (!product) {
     return <div>Loading...</div>;
@@ -55,33 +54,43 @@ const SingleProductPage = () => {
         <Row>
           <Col xs={12}>
             <div
-              className={`d-flex align-items-center justigy-content-around gap-5 m-5 ${s.section}`}
+              className={`d-flex align-items-center justify-content-around gap-5 m-5 ${s.section}`}
             >
-              <img
-                className={s.image}
-                src={product.image}
-                alt={product.title}
-              />
+              <img className={s.image} src={product.image} alt={product.title} />
               <div className={`d-flex flex-column gap-4`}>
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
                 <h3>{product.price} $</h3>
-                <button style={{
-                  width: "100%",
-                  height: "50px",
-                  background: "#FF8F28",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                }} onClick={handleAddToCart}>Buy</button>
-                
+                <button
+                  style={{
+                    width: "100%",
+                    height: "50px",
+                    background: "#FF8F28",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                  }}
+                  onClick={handleAddToCart}
+                >
+                  Buy
+                </button>
               </div>
             </div>
           </Col>
         </Row>
       </Container>
+
+      {showPopup && (
+        <div className={s["popup-overlay"]}>
+          <div className={s.popup}>
+            <p>Product added to cart!</p>
+            <button onClick={() => setShowPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
+
 };
 
 export default SingleProductPage;
