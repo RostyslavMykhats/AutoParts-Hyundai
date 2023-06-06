@@ -1,13 +1,12 @@
 .item {
   max-width: 30%;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 8px;
+  padding: 10px 10px;
   .card {
     display: flex;
     flex-direction: column;
     text-align: left;
-    border: 1px solid rgb(224, 224, 224);
-    border-radius: 8px;
-    padding: 10px 10px;
-
     &__image {
       border-radius: 8px;
       object-fit: contain;
@@ -16,6 +15,16 @@
 
     &__price {
       font-weight: bold;
+    }
+
+    &__btn {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      color: #fff;
+      background-color: #FF8F28;
+      border-radius: 8px;
+      text-transform: uppercase;
     }
   }
   @media (max-width:992px) {

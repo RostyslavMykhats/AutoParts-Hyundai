@@ -66,6 +66,9 @@ const Cart = () => {
   };
 
   return (
+    <div style={{
+      minHeight:'75vh'
+    }}>
     <Container className="mt-5">
       <Row>
         <Col xs={12} className="mt-5">
@@ -149,6 +152,7 @@ const Cart = () => {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 };
 

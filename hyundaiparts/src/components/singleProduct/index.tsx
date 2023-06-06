@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import s from "./index.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,9 +20,9 @@ const SingleProduct = ({ product }: any) => {
   };
   return (
     <>
-      <div className={s.card}>
+      <div className={s.item}>
         <Link
-          className={s.item}
+          className={s.card}
           style={{
             textDecoration: "none",
             color: "#000",
@@ -37,10 +37,13 @@ const SingleProduct = ({ product }: any) => {
             height={150}
           />
           <h5 className={s.card__title}>{shortTitle}</h5>
-          <p className={s.card__desc}>{shortDescription}</p>
-          <p className={s.card__price}>{product.price}$</p>
         </Link>
-        <button onClick={handleAddToCart}>buy</button>
+        <p className={s.card__desc}>{shortDescription}</p>
+        <div className="d-flex justify-content-between align-items-center">
+          <p className={s.card__price}>{product.price}$</p>
+
+          <button className={s.card__btn} onClick={handleAddToCart}>buy</button>
+        </div>
       </div>
       {showPopup && <Popup onClose={() => setShowPopup(false)} />}
     </>
