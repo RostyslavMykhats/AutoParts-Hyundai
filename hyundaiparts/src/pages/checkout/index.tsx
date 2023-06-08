@@ -18,7 +18,7 @@ const Cart = () => {
       <Container className="mt-5">
         <Row>
           <Col xs={12} className="mt-5">
-            <h3 className={s.title}>Checkout</h3>
+            <h3 className={s.title}>CHECKOUT</h3>
             <p className={s.title__desc}>
               Complete your purchase by providing the following information
             </p>
@@ -26,7 +26,7 @@ const Cart = () => {
         </Row>
         <Row className="mt-4 mb-4">
           <Col xs={12} lg={8}>
-            <div className={`d-flex flex-column ${s.products}`}>
+            <div className={`d-flex flex-column mb-5 ${s.products}`}>
               {cartItems.length > 0 ? (
                 // Якщо в кошику є товари, відображаємо їх
                 cartItems.map((item) => (

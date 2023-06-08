@@ -1,14 +1,13 @@
-import React, { Children } from 'react'
+import React from 'react'
 import s from './button.module.scss'
 
-const ButtonUi = (props:any) => {
-    const { children } = props;
+const ButtonUi = (props) => {
+  const { children, ...rest } = props;
+
   return (
-    <>
-        <button {...children} className={s.btn}>
-        {children}
-        </button>
-    </>
+    <button className={s.btn} {...rest}>
+      {children}
+    </button>
   )
 }
 

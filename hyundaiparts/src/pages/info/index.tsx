@@ -50,15 +50,6 @@ const info = () => {
                       consequat neque. Suspendisse potenti. Quisque in est
                       mauris. Nullam ut sollicitudin ligula.
                     </p>
-                    <Image
-                      style={{
-                        width: "110px",
-                        height: "85px",
-                        objectFit: "cover",
-                      }}
-                      src={Hyundai}
-                      alt="hyundaiLogo"
-                    />
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>

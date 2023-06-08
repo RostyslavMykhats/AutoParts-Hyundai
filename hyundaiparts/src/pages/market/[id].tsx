@@ -13,6 +13,7 @@ import ButtonUi from "@/components/button";
 import Popup from "@/components/Popup";
 import trash from "@/pages/cart/Trash.png";
 import Image from "next/image";
+import SingleProduct from "@/components/singleProduct";
 
 interface Product {
   title: string;
@@ -20,6 +21,7 @@ interface Product {
   description: string;
   price: number;
   id: number;
+  category: string;
 }
 
 interface RootState {
@@ -33,8 +35,13 @@ const SingleProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [product, setProduct] = useState<Product | null>(null);
-  const [showPopup, setShowPopup] = useState(false); // стан для відображення попапу
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
+
+  const changeWidthCardProduct = {
+    width: "100%",
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -48,20 +55,39 @@ const SingleProductPage = () => {
       }
     };
 
+    const fetchRelatedProducts = async () => {
+      try {
+        const response = await axios.get(
+          `https://fakestoreapi.com/products/category/${product?.category}`
+        );
+        const filteredProducts = response.data.filter(
+          (relatedProduct: Product) =>
+            relatedProduct.id !== product?.id && // Фільтруємо продукти з таким самим id
+            !cartItems.some(
+              (item) => item.product.id === relatedProduct.id
+            ) // Фільтруємо продукти, які вже є у списку cartItems
+        );
+        setRelatedProducts(filteredProducts.slice(0, 4));
+      } catch (error) {
+        console.log("Error fetching related products:", error);
+      }
+    };
+
     if (id) {
       fetchProduct();
+      fetchRelatedProducts();
     }
-  }, [id]);
+  }, [id, product?.category, cartItems]);
 
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart(product));
-      setShowPopup(true); // Встановлюємо значення стану на true при натисканні кнопки
+      setShowPopup(true);
     }
   };
 
   const handleRemoveFromCart = (productId: number) => {
-    dispatch(removeFromCart(productId)); // Видалити товар з кошика за його ідентифікатором
+    dispatch(removeFromCart(productId));
   };
 
   if (!product) {
@@ -69,25 +95,20 @@ const SingleProductPage = () => {
   }
 
   const handleQuantityChange = (productId: number, newQuantity: number) => {
-    // Диспетчеризуємо дію updateCartItemQuantity для оновлення кількості товару в кошику
     dispatch(updateCartItemQuantity({ productId, quantity: newQuantity }));
   };
 
   const handleIncrementQuantity = (productId: number) => {
-    // Знаходимо товар за його ідентифікатором
     const item = cartItems.find((item) => item.product.id === productId);
     if (item) {
-      // Якщо товар знайдено, збільшуємо його кількість на 1 і викликаємо handleQuantityChange для оновлення кількості
       const newQuantity = item.quantity + 1;
       handleQuantityChange(productId, newQuantity);
     }
   };
 
   const handleDecrementQuantity = (productId: number) => {
-    // Знаходимо товар за його ідентифікатором
     const item = cartItems.find((item) => item.product.id === productId);
     if (item && item.quantity > 1) {
-      // Якщо товар знайдено і його кількість більша за 1, зменшуємо його кількість на 1 і викликаємо handleQuantityChange для оновлення кількості
       const newQuantity = item.quantity - 1;
       handleQuantityChange(productId, newQuantity);
     }
@@ -136,7 +157,7 @@ const SingleProductPage = () => {
                             >
                               +
                             </button>
-                          </div>{" "}
+                          </div>
                           <button
                             className={s.delete}
                             onClick={() =>
@@ -165,6 +186,22 @@ const SingleProductPage = () => {
                 </button>
               </div>
             </div>
+          </Col>
+        </Row>
+        <Row className="mt-5 mb-5">
+          <Col xs={12}>
+            <h3>Related Products</h3>
+          </Col>
+          <Col
+            xs={12}
+            className="d-flex justify-content-center align-items-center flex-wrap gap-3"
+          >
+            {relatedProducts.map((relatedProduct) => (
+              <SingleProduct
+                key={relatedProduct.id}
+                product={relatedProduct}
+              />
+            ))}
           </Col>
         </Row>
       </Container>

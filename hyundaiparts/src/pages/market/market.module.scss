@@ -8,36 +8,3 @@
     background-repeat: no-repeat;
 }
 
-.categories {
-    border-right:1px solid #858585da;
-    height: 100%;
-    list-style: none;
-    padding: 0 30px;
-
-    @media (max-width:992px) {
-        border-right: none;
-        border-bottom: 1px solid #858585da;
-      }
-}
-
-.active {
-    width: 100%;
-    background-color: #FF8F28;
-    border-radius:8px 0 0 8px;
-    padding: 10px 15px;
-    color: white;
-}
-
-.category {
-    text-transform: capitalize;
-    cursor: pointer;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.products {
-    @media (max-width:992px) {
-        margin-top: 20px;
-        justify-content: center !important;
-      }
-}

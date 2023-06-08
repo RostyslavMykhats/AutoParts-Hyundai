@@ -1,0 +1,7 @@
+.title {
+    text-transform: uppercase;
+    &__desc {
+        text-transform: capitalize;
+        color: #858585;
+    }
+}
