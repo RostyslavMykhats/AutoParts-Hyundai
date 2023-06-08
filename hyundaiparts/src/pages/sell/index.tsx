@@ -1,4 +1,3 @@
-// Sell.js
 import React, { useState, useEffect } from "react";
 import s from "./sell.module.scss";
 import { Col, Container, Row } from "react-bootstrap";
@@ -33,6 +32,12 @@ const Sell = ({ onProductAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Check if the category is selected
+    if (!category) {
+      console.log("Please select a category.");
+      return; // Stop the function execution if the category is not selected
+    }
   
     const products = JSON.parse(localStorage.getItem("products")) || [];
     const newProductId = products.length + 1;
@@ -71,12 +76,13 @@ const Sell = ({ onProductAdded }) => {
       console.error("Error adding product:", error);
     }
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://64820d8829fa1c5c503286f2.mockapi.io/products");
+        const response = await axios.get(
+          "https://64820d8829fa1c5c503286f2.mockapi.io/products"
+        );
         console.log("Fetched data:", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -136,13 +142,18 @@ const Sell = ({ onProductAdded }) => {
                 <label htmlFor="category" className="form-label">
                   Category
                 </label>
-                <input
-                  type="text"
-                  className="form-control"
+                <select
+                  className="form-select"
                   id="category"
                   value={category}
                   onChange={handleCategoryChange}
-                />
+                >
+                  <option value="">Select a category</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="jewelery">Jewelry</option>
+                  <option value="men's clothing">Men's Clothing</option>
+                  <option value="women's clothing">Women's Clothing</option>
+                </select>
               </div>
               <div className="mb-3">
                 <label htmlFor="imageURL" className="form-label">
