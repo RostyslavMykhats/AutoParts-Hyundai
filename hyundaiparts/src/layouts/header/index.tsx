@@ -16,6 +16,11 @@ const Header = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <Head>
@@ -29,12 +34,14 @@ const Header = () => {
           <Container>
             <Row className="d-flex align-items-center justify-content-between flex-wrap">
               <Col xs={2} className="d-flex justify-content-start">
-                <Link href="/">
+                <Link href="/" onClick={closeMenu}>
                   <Image className={s.header__logo} src={logo} alt="H'PARTS" />
                 </Link>
               </Col>
               <Col xs={4} className="d-flex justify-content-end">
-                <div className={`${s.searchdesc}`}><Search /></div>
+                <div className={`${s.searchdesc}`}>
+                  <Search />
+                </div>
               </Col>
               <Col
                 xs={4}
@@ -44,17 +51,29 @@ const Header = () => {
               >
                 <ul className={`${s.nav}`}>
                   <li>
-                    <Link className={s.nav__item} href="/market">
+                    <Link
+                      className={s.nav__item}
+                      href="/market"
+                      onClick={closeMenu}
+                    >
                       MARKET
                     </Link>
                   </li>
                   <li>
-                    <Link className={s.nav__item} href="/sell">
+                    <Link
+                      className={s.nav__item}
+                      href="/sell"
+                      onClick={closeMenu}
+                    >
                       SELL
                     </Link>
                   </li>
                   <li>
-                    <Link className={s.nav__item} href="/info">
+                    <Link
+                      className={s.nav__item}
+                      href="/info"
+                      onClick={closeMenu}
+                    >
                       INFO
                     </Link>
                   </li>
@@ -94,17 +113,29 @@ const Header = () => {
                       <Search />
                     </li>
                     <li>
-                      <Link className={s.nav__item} href="/market">
+                      <Link
+                        className={s.nav__item}
+                        href="/market"
+                        onClick={closeMenu}
+                      >
                         MARKET
                       </Link>
                     </li>
                     <li>
-                      <Link className={s.nav__item} href="/sell">
+                      <Link
+                        className={s.nav__item}
+                        href="/sell"
+                        onClick={closeMenu}
+                      >
                         SELL
                       </Link>
                     </li>
                     <li>
-                      <Link className={s.nav__item} href="/info">
+                      <Link
+                        className={s.nav__item}
+                        href="/info"
+                        onClick={closeMenu}
+                      >
                         INFO
                       </Link>
                     </li>

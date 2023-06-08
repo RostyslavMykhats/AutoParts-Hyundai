@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
+// Sell.js
+import React, { useState, useEffect } from "react";
 import s from "./sell.module.scss";
 import { Col, Container, Row } from "react-bootstrap";
+import axios from "axios";
 
-const Sell = () => {
+const Sell = ({ onProductAdded }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -33,31 +34,57 @@ const Sell = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    const newProductId = products.length + 1;
+  
+    const newProduct = {
+      id: newProductId,
+      title,
+      price,
+      description,
+      category,
+      image: imageURL,
+    };
+  
+    products.push(newProduct);
+    localStorage.setItem("products", JSON.stringify(products));
+  
     try {
-      const response = await axios.post("https://fakestoreapi.com/products", {
-        title,
-        price,
-        description,
-        category,
-        image: imageURL,
-      });
+      const response = await axios.post(
+        "https://64820d8829fa1c5c503286f2.mockapi.io/products",
+        newProduct
+      );
   
-      console.log("Product added:", response.data);
-      // Додатковий код для обробки успішного додавання товару
+      // Call the onProductAdded callback if provided
+      if (onProductAdded) {
+        onProductAdded(newProduct);
+      }
   
-      // Виконати GET запит для оновлення списку продуктів
-  
-      // Очистити поля форми
       setTitle("");
       setPrice("");
       setDescription("");
       setCategory("");
       setImageURL("");
+  
+      console.log("Product added:", newProduct);
     } catch (error) {
       console.error("Error adding product:", error);
-      // Додатковий код для обробки помилки при додаванні товару
     }
   };
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://64820d8829fa1c5c503286f2.mockapi.io/products");
+        console.log("Fetched data:", response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div style={{ minHeight: "75vh" }}>
@@ -132,7 +159,7 @@ const Sell = () => {
               <button type="submit" className="btn btn-primary mb-5">
                 Add Product
               </button>
-            </form >
+            </form>
           </Col>
         </Row>
       </Container>

@@ -6,6 +6,7 @@ import Layouts from "@/layouts";
 import 'swiper/css';
 import { store } from "@/store";
 import { Provider } from "react-redux";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -16,6 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps}  style={{
             background: "#F5F5F5",
           }}/>
+          <ScrollToTopButton/>
         </Layouts>
       </Provider> 
     </>

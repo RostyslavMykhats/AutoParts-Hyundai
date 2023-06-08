@@ -3,8 +3,9 @@ import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useRouter } from "next/router";
 import s from "./market.module.scss";
 import SingleProduct from "@/components/singleProduct";
-import CategoryList from "@/components/categoryList";
+import CategoryList from "@/components/CategoryList";
 import { getData } from "@/utils/Fetch";
+import ProductSorter from "@/components/ProductSorter";
 
 const Market = () => {
   const router = useRouter();
@@ -15,25 +16,31 @@ const Market = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortOption, setSortOption] = useState("");
 
   useEffect(() => {
     setLoading(true);
 
-    getData("https://fakestoreapi.com/products", "").then((data) => {
-      setProducts(data);
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    if (storedProducts) {
+      setProducts(storedProducts);
       setLoading(false);
-    });
+    } else {
+      getData("https://fakestoreapi.com/products", "").then((data) => {
+        setProducts(data);
+        setLoading(false);
+        localStorage.setItem("products", JSON.stringify(data));
+      });
+    }
   }, []);
 
   useEffect(() => {
     setLoading(true);
 
-    getData("https://fakestoreapi.com/products/categories", "").then(
-      (data) => {
-        setCategories(data);
-        setLoading(false);
-      }
-    );
+    getData("https://fakestoreapi.com/products/categories", "").then((data) => {
+      setCategories(data);
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -51,14 +58,29 @@ const Market = () => {
     });
   };
 
+  const handleSort = (option) => {
+    setSortOption(option);
+    const sortedProducts = [...filteredProducts];
+
+    if (option === "price-asc") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    } else if (option === "price-desc") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    }
+    setFilteredProducts(sortedProducts);
+  };
+
   return (
-    <div style={{
-      minHeight:'75vh'
-    }}>
+    <div style={{ minHeight: "75vh" }}>
       <Container className="mt-5 mb-5">
         <Row>
           <Col xs={12}>
             <div className={s.banner}></div>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} className="d-flex justify-content-end mb-3">
+            <ProductSorter products={filteredProducts} onSort={handleSort} />
           </Col>
         </Row>
         <Row>
@@ -79,9 +101,11 @@ const Market = () => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             ) : (
-              filteredProducts.map((p) => (
-                <SingleProduct key={p.id} product={p} />
-              ))
+              <div className={`${s.products__list}`}>
+                {filteredProducts.map((p) => (
+                  <SingleProduct key={p.id} product={p} />
+                ))}
+              </div>
             )}
           </Col>
         </Row>

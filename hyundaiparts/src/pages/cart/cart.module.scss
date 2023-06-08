@@ -80,3 +80,19 @@
         outline: none;
     }
 }
+
+.canceled {
+    border-radius: 8px;
+    background-color: #FF8F28;
+    border: none;
+    color: #FFF;
+    padding: 5px 20px;
+}
+
+.remove {
+    border-radius: 8px;
+    background-color: #858585;
+    border: none;
+    color: #FFF;
+    padding: 5px 20px;
+}
