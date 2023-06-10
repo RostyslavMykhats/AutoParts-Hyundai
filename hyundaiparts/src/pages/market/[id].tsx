@@ -43,13 +43,11 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      console.log(id);
       if (id < 20) {
         try {
           const response = await axios.get(
             `https://fakestoreapi.com/products/${id}`
           );
-          console.log(response.data);
           setProduct(response.data);
           return; // Вийти, якщо продукт отримано з fakestoreapi
         } catch (error) {
@@ -62,7 +60,6 @@ const SingleProductPage = () => {
           const response = await axios.get(
             `https://64820d8829fa1c5c503286f2.mockapi.io/products/${id}`
           );
-          console.log(response.data);
           setProduct(response.data);
           return; // Вийти, якщо продукт отримано з іншого джерела
         } catch (error) {

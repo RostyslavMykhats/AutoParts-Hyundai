@@ -11,7 +11,7 @@ const Search = () => {
  
   const handleSearch = async () => { 
     const response = await axios.get(`https://fakestoreapi.com/products`); 
-    const filteredProducts = response.data.filter((product) => 
+    const filteredProducts = response.data.filter((product:any) => 
       product.title.toLowerCase().includes(searchText.toLowerCase()) 
     ); 
     setProducts(filteredProducts); 
@@ -19,8 +19,8 @@ const Search = () => {
   };
  
   // Додайте цей код для реалізації debounce. 
-  const debounce = (func, delay) => { 
-    let timeoutId; 
+  const debounce = (func:any, delay:any) => { 
+    let timeoutId:any; 
     return function () { 
       const context = this; 
       const args = arguments; 
@@ -60,8 +60,9 @@ const Search = () => {
             flexDirection: "column", 
             alignItems: "center", 
             padding: "10px", 
-            border: "1px solid #000", 
+            border: "1px solid silver", 
             marginBottom: "10px", 
+            borderRadius:'8px'
           }} 
         > 
           <button 
@@ -96,11 +97,12 @@ const Search = () => {
                     alignItems: "center", 
                     justifyContent: "start", 
                     padding: "10px ", 
-                    border: "1px solid #000", 
+                    border: "1px solid silver", 
                     marginBottom: "10px", 
                     width: "100%", 
                     maxWidth: "500px", 
                     cursor: "pointer", 
+                    borderRadius:'8px'
                   }} 
                 > 
                   <img 
