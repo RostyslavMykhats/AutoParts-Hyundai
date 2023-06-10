@@ -54,7 +54,6 @@ export const cartSlice = createSlice({
         state.items.push({ product, quantity: 1 });
       }
       
-    
       saveCartItemsToLocalStorage(state.items);
     },
     
