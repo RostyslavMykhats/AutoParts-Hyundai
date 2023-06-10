@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios"; 
 import s from "./search.module.scss"; 
 import Link from "next/link"; 
+import { Image } from "react-bootstrap";
  
  
 const Search = () => { 
@@ -105,7 +106,7 @@ const Search = () => {
                     borderRadius:'8px'
                   }} 
                 > 
-                  <img 
+                  <Image
                     style={{ 
                       width: "50px", 
                       height: "50px", 
